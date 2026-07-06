@@ -190,6 +190,53 @@ select:disabled {
   color: var(--teal);
 }
 
+.bulkTools {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bulkTools label,
+.selectLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bulkTools span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.bulkTools button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.bulkTools button:nth-of-type(1) {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+}
+
+.selectLine {
+  margin-bottom: 6px;
+}
+
 .table {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -333,6 +380,16 @@ select {
   padding: 18px;
 }
 
+.campaignCard.clickable {
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.campaignCard.clickable:hover {
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
 .campaignCard h2 {
   margin: 12px 0 8px;
   font-size: 18px;
@@ -360,6 +417,7 @@ select {
   background: rgba(24, 33, 47, 0.25);
   display: flex;
   justify-content: flex-end;
+  z-index: 100;
 }
 
 .panel {
@@ -372,11 +430,25 @@ select {
 }
 
 .close {
-  float: right;
   border: 0;
-  background: transparent;
+  background: var(--panel);
   font-size: 30px;
   cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-left: auto;
+  margin-bottom: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.close:hover {
+  background: var(--panel-2);
 }
 
 .panel h2 {
@@ -393,6 +465,52 @@ select {
   display: flex;
   gap: 8px;
   margin-top: 16px;
+}
+
+.panelList {
+  display: grid;
+  gap: 8px;
+}
+
+.panelPerson {
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  border-radius: 8px;
+  padding: 11px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.panelPerson:hover {
+  border-color: var(--teal);
+}
+
+.panelPerson strong,
+.panelPerson small {
+  display: block;
+}
+
+.panelPersonActions {
+  display: flex;
+  gap: 7px;
+}
+
+.panelPersonActions button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 7px 9px;
+  cursor: pointer;
+}
+
+.panelPersonActions button:first-child {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
 }
 
 .timeline {
@@ -426,6 +544,10 @@ select {
 
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bulkTools span {
+    margin-left: 0;
   }
 
   .brand {
@@ -545,6 +667,17 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-bottom: 12px;
+  }
+
+  .bulkTools {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    padding: 9px;
+  }
+
+  .bulkTools button {
+    min-height: 38px;
   }
 
   .stat {
@@ -679,8 +812,13 @@ select {
   .panel {
     width: 100vw;
     min-height: 100dvh;
-    padding: 22px 16px 34px;
+    padding: 12px 16px 34px;
     box-shadow: none;
+  }
+
+  .close {
+    top: 8px;
+    box-shadow: 0 1px 10px rgba(24, 33, 47, 0.08);
   }
 
   .panel h2 {
@@ -691,6 +829,15 @@ select {
   .panelActions {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .panelPerson {
+    grid-template-columns: 1fr;
+  }
+
+  .panelPersonActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -714,5 +861,9 @@ select {
 
   .actions button {
     grid-column: 2;
+  }
+
+  .panelPersonActions {
+    grid-template-columns: 1fr;
   }
 }
