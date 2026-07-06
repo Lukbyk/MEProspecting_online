@@ -21,6 +21,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
 }
 
 button,
@@ -234,6 +235,18 @@ select:disabled {
   display: block;
 }
 
+.cell {
+  min-width: 0;
+}
+
+.contactCell {
+  min-width: 0;
+}
+
+.contactCell small {
+  overflow-wrap: anywhere;
+}
+
 .mono {
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
@@ -309,7 +322,7 @@ select {
 
 .campaignCards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 12px;
 }
 
@@ -407,11 +420,299 @@ select {
     z-index: 10;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+    padding: 12px 14px;
+    gap: 8px;
   }
 
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand {
+    margin-bottom: 2px;
+    padding: 4px 4px 10px;
+  }
+
+  .sidebarNote {
+    display: none;
+  }
+
+  .nav {
+    width: auto;
+    min-width: max-content;
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar .nav {
+    display: inline-flex;
+  }
+
+  .sidebar > .nav {
+    margin-right: 6px;
+  }
+
+  .workspace {
+    padding: 0 16px 46px;
+  }
+
+  .peopleGrid {
+    grid-template-columns:
+      minmax(150px, 1.2fr)
+      minmax(140px, 1fr)
+      minmax(116px, 0.8fr)
+      minmax(142px, 0.9fr)
+      minmax(170px, 1fr)
+      minmax(150px, 0.9fr);
+  }
+
+  .companyGrid {
+    grid-template-columns: minmax(190px, 1.4fr) 110px 70px 70px minmax(160px, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .shell {
+    display: block;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 10px 12px;
+    scrollbar-width: none;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brand {
+    flex: 0 0 190px;
+    border-bottom: 0;
+    margin: 0;
+    padding: 0 10px 0 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .brand strong {
+    font-size: 13px;
+    line-height: 1.15;
+  }
+
+  .brand small {
+    font-size: 11px;
+  }
+
+  .nav {
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .workspace {
+    padding: 0 12px 36px;
+  }
+
+  .topbar {
+    height: auto;
+    min-height: 68px;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 0 12px;
+    margin-bottom: 12px;
+  }
+
+  .topbar h1 {
+    font-size: 21px;
+  }
+
+  .secondary {
+    padding: 7px 10px;
+    white-space: nowrap;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .stat {
+    padding: 11px;
+  }
+
+  .stat strong {
+    font-size: 22px;
+  }
+
+  .stat span {
+    font-size: 11px;
+  }
+
+  .table {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+    display: grid;
+    gap: 10px;
+  }
+
+  .thead {
+    display: none;
+  }
+
+  .row,
   .peopleGrid,
-  .companyGrid,
+  .companyGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .row {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .row:hover {
+    background: var(--panel);
+  }
+
+  .cell {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+    min-width: 0;
+  }
+
+  .cell:first-child {
+    border-top: 0;
+  }
+
+  .cell::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .cell.primary {
+    display: block;
+    padding: 13px 12px;
+  }
+
+  .cell.primary::before {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .contactCell {
+    align-items: center;
+  }
+
+  .contactCell small {
+    align-self: center;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .actions::before {
+    align-self: center;
+  }
+
+  .actions button {
+    width: 100%;
+    min-height: 38px;
+    padding: 7px 8px;
+  }
+
+  select {
+    min-height: 38px;
+  }
+
+  .campaignCards {
+    grid-template-columns: 1fr;
+  }
+
+  .campaignCard {
+    padding: 14px;
+  }
+
+  .campaignCard h2 {
+    font-size: 16px;
+    overflow-wrap: anywhere;
+  }
+
+  .campaignCard dl,
+  .panel dl {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .overlay {
+    justify-content: stretch;
+  }
+
+  .panel {
+    width: 100vw;
+    min-height: 100dvh;
+    padding: 22px 16px 34px;
+    box-shadow: none;
+  }
+
+  .panel h2 {
+    font-size: 21px;
+    overflow-wrap: anywhere;
+  }
+
+  .panelActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand {
+    flex-basis: 164px;
+  }
+
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  .cell {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .actions {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .actions button {
+    grid-column: 2;
   }
 }

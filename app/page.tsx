@@ -205,36 +205,37 @@ function PeopleTable(props: {
       </div>
       {props.people.map((person) => (
         <div className="row peopleGrid" key={person.id} onClick={() => props.onOpen(person)}>
-          <div>
+          <div className="cell primary" data-label="Osoba">
             <strong>{fullName(person)}</strong>
             <small>{person.title || "brak stanowiska"}</small>
           </div>
-          <div>
+          <div className="cell" data-label="Firma">
             <strong>{person.company_name}</strong>
             <small>{[person.city, person.region].filter(Boolean).join(", ") || "brak lokalizacji"}</small>
           </div>
-          <div>
+          <div className="cell contactCell" data-label="Kontakt">
             <span className={`dot c${person.contactability || "C"}`}>{person.contactability || "C"}</span>
             <small>{person.email || "brak maila"}</small>
           </div>
-          <div>
+          <div className="cell" data-label="Status">
             <span className="pill">{STATUS_PL[person.status]}</span>
             <small>{person.ready_reason || "bez uzasadnienia"}</small>
           </div>
-          <select
-            value={person.campaign_id || ""}
-            disabled={props.busyId === person.id}
-            onClick={(event) => event.stopPropagation()}
-            onChange={(event) => props.onCampaign(person, event.target.value)}
-          >
-            <option value="">bez kampanii</option>
-            {props.campaigns.map((campaign) => (
-              <option key={campaign.id} value={campaign.id}>
-                {campaign.name}
-              </option>
-            ))}
-          </select>
-          <div className="actions" onClick={(event) => event.stopPropagation()}>
+          <div className="cell" data-label="Kampania" onClick={(event) => event.stopPropagation()}>
+            <select
+              value={person.campaign_id || ""}
+              disabled={props.busyId === person.id}
+              onChange={(event) => props.onCampaign(person, event.target.value)}
+            >
+              <option value="">bez kampanii</option>
+              {props.campaigns.map((campaign) => (
+                <option key={campaign.id} value={campaign.id}>
+                  {campaign.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="cell actions" data-label="Akcje" onClick={(event) => event.stopPropagation()}>
             <button
               disabled={props.busyId === person.id || person.status !== "awaiting_selection"}
               onClick={() => props.onConfirm(person)}
@@ -264,14 +265,22 @@ function CompaniesTable({ companies }: { companies: Company[] }) {
       </div>
       {companies.map((company) => (
         <div className="row companyGrid" key={company.duns}>
-          <div>
+          <div className="cell primary" data-label="Firma">
             <strong>{company.company_name}</strong>
             <small>{[company.city, company.region, company.domain].filter(Boolean).join(" · ")}</small>
           </div>
-          <span className="pill">{company.company_status || "nowa"}</span>
-          <span className="mono">{company.n_people || 0}</span>
-          <span className="mono">{company.n_ready || 0}</span>
-          <span>{company.industry || "brak branży"}</span>
+          <div className="cell" data-label="Status">
+            <span className="pill">{company.company_status || "nowa"}</span>
+          </div>
+          <div className="cell mono" data-label="Osoby">
+            {company.n_people || 0}
+          </div>
+          <div className="cell mono" data-label="Gotowi">
+            {company.n_ready || 0}
+          </div>
+          <div className="cell" data-label="Branża">
+            {company.industry || "brak branży"}
+          </div>
         </div>
       ))}
     </div>
